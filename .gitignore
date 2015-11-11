@@ -26,3 +26,17 @@
 *.exe
 *.out
 *.app
+
+# silly metadata things
+.cproject
+.project
+sysProps.xml
+.settings/*
+
+# compilation output
+Debug/*
+/Debug/
+Release/*
+/Release/
+Simulate/*
+/Simulate/
