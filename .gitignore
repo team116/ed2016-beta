@@ -28,8 +28,6 @@
 *.app
 
 # silly metadata things
-.cproject
-.project
 sysProps.xml
 .settings/*
 
