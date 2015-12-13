@@ -1,17 +1,21 @@
-#include "WPILib.h"
-#include "Commands/Command.h"
-#include "Commands/ExampleCommand.h"
-#include "CommandBase.h"
+#include <cstdlib>
+#include <WPILib.h>
+#include <Commands/Command.h>
+#include <CommandBase.h>
+#include <Subsystems/Mobility.h>
 
 class Robot: public IterativeRobot
 {
 private:
 	std::unique_ptr<Command> autonomousCommand;
 
+	Mobility* mobility;
+	OI* oi;
+
 	void RobotInit()
 	{
 		CommandBase::init();
-		autonomousCommand.reset(new ExampleCommand());
+		//autonomousCommand.reset(new ExampleCommand());
 	}
 
 	/**
@@ -21,6 +25,10 @@ private:
      */
 	void DisabledInit()
 	{
+		if (autonomousCommand != NULL)
+		{
+			autonomousCommand->Cancel();
+		}
 	}
 
 	void DisabledPeriodic()
@@ -31,7 +39,9 @@ private:
 	void AutonomousInit()
 	{
 		if (autonomousCommand != NULL)
+		{
 			autonomousCommand->Start();
+		}
 	}
 
 	void AutonomousPeriodic()
@@ -46,7 +56,9 @@ private:
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != NULL)
+		{
 			autonomousCommand->Cancel();
+		}
 	}
 
 	void TeleopPeriodic()
@@ -61,4 +73,3 @@ private:
 };
 
 START_ROBOT_CLASS(Robot)
-
